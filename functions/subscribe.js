@@ -134,6 +134,9 @@ exports.handler = async (event) => {
 
       // Send email using Resend
       console.log("Attempting to send email with Resend...");
+      let emailSent = false;
+      let emailError = null;
+
       try {
         const data = await resend.emails.send({
           from: 'OMNIS <onboarding@resend.dev>',
@@ -147,31 +150,32 @@ exports.handler = async (event) => {
         // Check if there was an error in the response
         if (data.error) {
           console.error("Resend API returned an error:", data.error);
-          return {
-            statusCode: 200, // Still return 200 to the user
-            body: JSON.stringify({
-              message: "Successfully subscribed! However, there was an issue sending the welcome email. Please check your spam folder or try again later.",
-              error: data.error
-            }),
-          };
+          emailError = data.error;
+        } else {
+          emailSent = true;
         }
       } catch (sendError) {
         console.error("Error sending email with Resend:", sendError);
+        emailError = sendError.message;
+      }
+
+      // Return appropriate response based on whether email was sent
+      if (emailSent) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify({
+            message: "Successfully subscribed! Check your email for a welcome message."
+          }),
+        };
+      } else {
         return {
           statusCode: 200, // Still return 200 to the user
           body: JSON.stringify({
             message: "Successfully subscribed! However, there was an issue sending the welcome email. Please check your spam folder or try again later.",
-            error: sendError.message
+            error: emailError
           }),
         };
       }
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          message: "Successfully subscribed! Check your email for a welcome message."
-        }),
-      };
     } catch (emailError) {
       console.error("Error sending welcome email:", emailError);
       // Still return success for subscription even if email fails
