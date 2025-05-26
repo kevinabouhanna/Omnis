@@ -52,7 +52,7 @@ export function AuthForm() {
   return (
     <div className="space-y-4 max-w-sm mx-auto p-6 rounded-xl bg-zinc-900 shadow-lg border border-zinc-800">
       <h2 className="text-2xl font-semibold mb-2 text-white text-center">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit}>
         <Label htmlFor="email" className="text-zinc-200">Email</Label>
         <Input
           id="email"
@@ -61,7 +61,7 @@ export function AuthForm() {
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
-          className="bg-zinc-800 text-zinc-100 placeholder-zinc-500 border-zinc-700 focus:ring-2 focus:ring-primary"
+          className="bg-zinc-800 text-zinc-100 placeholder-zinc-500 border-zinc-700 focus:ring-2 focus:ring-primary mt-2 mb-4"
         />
         <Label htmlFor="password" className="text-zinc-200">Password</Label>
         <Input
@@ -71,7 +71,7 @@ export function AuthForm() {
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
-          className="bg-zinc-800 text-zinc-100 placeholder-zinc-500 border-zinc-700 focus:ring-2 focus:ring-primary"
+          className="bg-zinc-800 text-zinc-100 placeholder-zinc-500 border-zinc-700 focus:ring-2 focus:ring-primary mt-2 mb-4"
         />
         <Button type="submit" className="w-full" variant="default" disabled={loading}>
           {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Log In'}
@@ -96,7 +96,7 @@ export function AuthForm() {
         )}
       </form>
       {showReset && (
-        <form onSubmit={handlePasswordReset} className="space-y-2 mt-2">
+        <form onSubmit={handlePasswordReset} className="mt-2">
           <Label htmlFor="reset-email" className="text-zinc-200">Enter your email to reset password</Label>
           <Input
             id="reset-email"
@@ -105,7 +105,7 @@ export function AuthForm() {
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
-            className="bg-zinc-800 text-zinc-100 placeholder-zinc-500 border-zinc-700 focus:ring-2 focus:ring-primary"
+            className="bg-zinc-800 text-zinc-100 placeholder-zinc-500 border-zinc-700 focus:ring-2 focus:ring-primary mb-4"
           />
           <Button type="submit" className="w-full" variant="default">Send Reset Email</Button>
         </form>

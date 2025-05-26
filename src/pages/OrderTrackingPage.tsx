@@ -12,7 +12,7 @@ const OrderTrackingPage = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-black-900">
         <div className="p-6 bg-white rounded shadow text-center">
           <h2 className="text-xl font-semibold mb-2">Sign In Required</h2>
           <p className="mb-4">You must be logged in to track your order.</p>
@@ -23,10 +23,10 @@ const OrderTrackingPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-black-900">
       <OrderTracker />
     </div>
   );
 };
 
-export default OrderTrackingPage; 
+export default OrderTrackingPage;
