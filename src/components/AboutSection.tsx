@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -10,11 +10,23 @@ import {
 import { LazyImage } from "@/components/ui/lazy-image";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { SplineScene } from "@/components/ui/spline-scene";
 
 const AboutSection = () => {
   const title = useRevealAnimation({ y: 50 });
   const image = useImageRevealAnimation();
   const textMask = useTextMaskRevealAnimation({ duration: 0.8 });
+
+  useEffect(() => {
+    const container = document.getElementById("spline-viewer-container");
+    if (container && !container.querySelector("spline-viewer")) {
+      const viewer = document.createElement("spline-viewer");
+      viewer.setAttribute("url", "https://prod.spline.design/GvQkkBWpxFOgCZ2Q/scene.splinecode");
+      viewer.setAttribute("style", "width: 100%; height: 100%;");
+      viewer.setAttribute("logo", "false");
+      container.appendChild(viewer);
+    }
+  }, []);
 
   return (
     <section id="about" className="section bg-omnis-black">
@@ -91,12 +103,18 @@ const AboutSection = () => {
             animate={image.controls}
           >
             <motion.div variants={image.variants} className="w-full">
-              <LazyImage
-                src="/images/about/designer-at-work.jpg"
-                alt="OMNIS designer at work"
-                imgClassName="w-full h-full object-cover"
-                wrapperClassName="w-full"
-                aspectRatio="4/3" // Appropriate aspect ratio for this image
+              <SplineScene
+                scene="https://prod.spline.design/iqMD50HhQCmDiaXM/scene.splinecode"
+                className="w-full h-[400px] md:h-[480px]"
+                fallbackClassName="flex items-center justify-center"
+                fallbackContent={
+                  <div className="text-omnis-lightgray">
+                    Loading OMNIS Vision 3D Model...
+                  </div>
+                }
+                hideWatermark={true}
+                enableGlobalMouseTracking={true}
+                artistName="@byfranbeltramella"
               />
             </motion.div>
           </motion.div>
