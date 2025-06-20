@@ -4,6 +4,8 @@
 
 OMNIS is a modern fashion e-commerce website built with React and TypeScript. The site features smooth animations, responsive design, and a minimalist aesthetic focused on premium clothing.
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kevinabouhanna/Omnis)
+
 ### Tech Stack
 
 - Vite
